@@ -167,8 +167,8 @@ tar -xzf guacamole-server-${GUACVERSION}.tar.gz
 tar -xzf guacamole-auth-jdbc-${GUACVERSION}.tar.gz
 
 # Make directories
-mkdir -p /etc/guacamole/lib
-mkdir -p /etc/guacamole/extensions
+mkdir -p /etc/gu/lib
+mkdir -p /etc/gu/extensions
 
 # Install guacd
 cd guacamole-server-${GUACVERSION}
@@ -210,18 +210,18 @@ cd ..
 BUILD_FOLDER=$(dpkg-architecture -qDEB_BUILD_GNU_TYPE)
 
 # Move files to correct locations
-mv guacamole-${GUACVERSION}.war /etc/guacamole/guacamole.war
-ln -s /etc/guacamole/guacamole.war /var/lib/${TOMCAT}/webapps/
+mv guacamole-${GUACVERSION}.war /etc/gu/gua.war
+ln -s /etc/gu/gua.war /var/lib/${TOMCAT}/webapps/
 ln -s /usr/local/lib/freerdp/guac*.so /usr/lib/${BUILD_FOLDER}/freerdp/
-ln -s /usr/share/java/mysql-connector-java.jar /etc/guacamole/lib/
-cp guacamole-auth-jdbc-${GUACVERSION}/mysql/guacamole-auth-jdbc-mysql-${GUACVERSION}.jar /etc/guacamole/extensions/
+ln -s /usr/share/java/mysql-connector-java.jar /etc/gu/lib/
+cp guacamole-auth-jdbc-${GUACVERSION}/mysql/guacamole-auth-jdbc-mysql-${GUACVERSION}.jar /etc/gu/extensions/
 
 # Configure guacamole.properties
-echo "mysql-hostname: localhost" >> /etc/guacamole/guacamole.properties
-echo "mysql-port: 3306" >> /etc/guacamole/guacamole.properties
-echo "mysql-database: ${DB}" >> /etc/guacamole/guacamole.properties
-echo "mysql-username: guacamole_user" >> /etc/guacamole/guacamole.properties
-echo "mysql-password: ${guacdbuserpassword}" >> /etc/guacamole/guacamole.properties
+echo "mysql-hostname: localhost" >> /etc/gu/guacamole.properties
+echo "mysql-port: 3306" >> /etc/gu/guacamole.properties
+echo "mysql-database: ${DB}" >> /etc/gu/guacamole.properties
+echo "mysql-username: guacamole_user" >> /etc/gu/guacamole.properties
+echo "mysql-password: ${guacdbuserpassword}" >> /etc/gu/guacamole.properties
 
 # restart tomcat
 echo -e "${BLUE}Restarting tomcat...${NC}"
